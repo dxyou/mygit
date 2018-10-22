@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
 
@@ -72,9 +73,10 @@ public class ZipPic {
 	}
  
 	public static void main(String[] args) throws IOException {
-		byte[] data = compressUnderSize(readInByteArray(new File("C:\\Users\\23008\\Desktop\\image\\5.jpg")), 100 * 300);	
-		if(data.length < 100 * 300) {
-			System.out.println("data:"+data);
+		byte[] data = compressUnderSize(readInByteArray(new File("C:\\Users\\23008\\Desktop\\image\\5.jpg")), 100 * 1024);	
+		if(data.length < 100 * 1024) {
+			String strdata = Base64.getEncoder().encodeToString(data);
+			System.out.println("data:"+strdata+"\nstrdata length: "+strdata.length());
 		}
 		FileUtils.writeByteArrayToFile(new File("C:\\\\Users\\\\23008\\\\Desktop\\\\image\\\\5zip.jpg"), data);
 	}
