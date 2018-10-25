@@ -16,7 +16,7 @@ public class fileStringSearch {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		/*System.out.println("Source file: ");
+		System.out.println("Source file: ");
 		File sfile;
 		String sourcefilepath;
 		do {
@@ -35,8 +35,8 @@ public class fileStringSearch {
 		if(!tempfile.exists()) {tempfile.createNewFile();}
 		if(!destfile.exists()) {destfile.createNewFile();}
 		String searchfilepath;
+		System.out.println("Search file: ");
 		do{
-			System.out.println("Search file: ");
 			BufferedReader scf =  new BufferedReader(new InputStreamReader(System.in));
 			searchfilepath = scf.readLine();
 			if(searchfilepath == null || searchfilepath== "") {
@@ -46,11 +46,12 @@ public class fileStringSearch {
 			File searchfile = new File(searchfilepath);
 			if(!searchfile.exists()) {
 				System.err.println("file not exit try again.\nSearch file:");
+				continue;
 			}
 			SearchWord(searchfilepath,sourcefilepath,tempfilepath,destfilepath);
-		}while(searchfilepath!=null&&searchfilepath!="");*/
+		}while(searchfilepath!=null&&searchfilepath!="");
 		
-		String filepath = "E:\\TXT\\1.txt";//E:\\IMG\\a.jpg	E:\\TXT\\1.txt
+		/*String filepath = "E:\\TXT\\1.txt";//E:\\IMG\\a.jpg	E:\\TXT\\1.txt
 		BufferedInputStream bi = new BufferedInputStream(new FileInputStream(filepath));
 		byte[] b = new byte[bi.available()];
 		
@@ -62,10 +63,10 @@ public class fileStringSearch {
 			System.out.println("find!!");
 		}else {
 			System.out.println("not find!!");
-		}
+		}*/
 //		System.out.println(Arrays.toString(b));//得到的是字节
 //		System.out.println(new String(b));//可以得到中文
-		bi.close();
+//		bi.close();
 		/*FileReader fr = new FileReader(new File(sourcefilepath));
 		BufferedReader br = new BufferedReader(fr);
 		int i=0;
@@ -79,12 +80,21 @@ public class fileStringSearch {
 		
 	}
 
-	private static void SearchWord(String searchfilepath, String sourcefilepath, String tempfilepath, String destfilepath) {
+	private static void SearchWord(String searchfilepath, String sourcefilepath, String tempfilepath, String destfilepath) throws IOException {
 		// TODO Auto-generated method stub
-		
+		FileReader sourcefr = new FileReader(sourcefilepath);
+		BufferedReader sourcebr = new BufferedReader(sourcefr);
+		String sources;
+		while((sources = sourcebr.readLine()) != null) {
+			if(matchString(searchfilepath, sources)) {
+				break;
+			}
+		}
+		sourcebr.close();
+		sourcefr.close();
 	}
 
-	private boolean matchString(String filename,String matchword) throws FileNotFoundException {
+	private static boolean matchString(String filename,String matchword) throws IOException {
 		
 		/*BufferedInputStream bi = new BufferedInputStream(new FileInputStream(filename));
 		byte[] b = new byte[bi.available()];
@@ -99,6 +109,19 @@ public class fileStringSearch {
 		byte[] b = fi.read(fi.available());
 		Pattern pt = Pattern.compile(matchword);
 		Matcher mc = pt.matcher("");*/
-		return true;
+		BufferedInputStream bi = new BufferedInputStream(new FileInputStream(filename));
+		byte[] b = new byte[bi.available()];
+		
+		bi.read(b);
+		String ss = new String(b);
+		Pattern pt = Pattern.compile("cr_tm");
+		Matcher mc = pt.matcher(ss);
+		if(mc.find()) {
+			System.out.println("find!!");
+			return true;
+		}else {
+			System.out.println("not find!!");
+			return false;
+		}
 	}
 }
