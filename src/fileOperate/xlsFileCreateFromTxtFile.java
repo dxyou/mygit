@@ -17,17 +17,16 @@ public class xlsFileCreateFromTxtFile {
 
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		xlsFileCreateFromTxtFile xlsFileCreateFromTxtFile = new xlsFileCreateFromTxtFile();
 		try {
 			xlsFileCreateFromTxtFile.generateXlsByTxt("E:\\TXT\\file.temp", "E:\\TXT\\result.xls");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	public void generateXlsByTxt(String txtfilename,String xlsname) throws IOException {
+		@SuppressWarnings("unused")
 		String rootpath = txtfilename.substring(0,txtfilename.lastIndexOf("\\")+1);
 		File txtfile = new File(txtfilename);
 		if(!txtfile.exists()) {
@@ -52,7 +51,6 @@ public class xlsFileCreateFromTxtFile {
 	}
 	
 	private boolean generatexlsfile(String f1,String f2) throws IOException {
-		// TODO Auto-generated method stub
 		boolean result = true;
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet xlssheet = wb.createSheet();
@@ -77,11 +75,12 @@ public class xlsFileCreateFromTxtFile {
 	    wb.write(outStream);
 	    outStream.flush();
 	    outStream.close();
+	    bf1r.close();
+	    wb.close();
 		return result;
 	}
 	
 	private boolean generatexlsxfile(String f1,String f2) throws IOException {
-		// TODO Auto-generated method stub
 		boolean result = true;
 		XSSFWorkbook xwb = new XSSFWorkbook();
 		XSSFSheet xlsxsheet = xwb.createSheet();
@@ -106,6 +105,8 @@ public class xlsFileCreateFromTxtFile {
 	    xwb.write(outStream);
 	    outStream.flush();
 	    outStream.close();
+	    bf1r2.close();
+	    xwb.close();
 		return result;
 	}
 }
