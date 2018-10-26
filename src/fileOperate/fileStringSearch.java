@@ -14,12 +14,9 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.processing.Filer;
-
 public class fileStringSearch {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Source file: ");
 		File sfile;
 		String sourcefilepath;
@@ -58,33 +55,6 @@ public class fileStringSearch {
 			SearchWord(searchfilepath,sourcefilepath,tempfilepath,destfilepath);
 		}while(searchfilepath!=null&&searchfilepath!="");
 		
-		/*String filepath = "E:\\TXT\\1.txt";//E:\\IMG\\a.jpg	E:\\TXT\\1.txt
-		BufferedInputStream bi = new BufferedInputStream(new FileInputStream(filepath));
-		byte[] b = new byte[bi.available()];
-		
-		bi.read(b);
-		String ss = new String(b);
-		Pattern pt = Pattern.compile("cr_tm");
-		Matcher mc = pt.matcher(ss);
-		if(mc.find()) {
-			System.out.println("find!!");
-		}else {
-			System.out.println("not find!!");
-		}*/
-//		System.out.println(Arrays.toString(b));//得到的是字节
-//		System.out.println(new String(b));//可以得到中文
-//		bi.close();
-		/*FileReader fr = new FileReader(new File(sourcefilepath));
-		BufferedReader br = new BufferedReader(fr);
-		int i=0;
-		String bs;
-		while( (bs = br.readLine())!=null) {
-			++i;
-			System.out.println(i+": "+bs);
-		}
-		br.close();
-		fr.close();*/
-		
 	}
 
 	/**
@@ -99,7 +69,6 @@ public class fileStringSearch {
 	 * @throws IOException
 	 */
 	private static void SearchWord(String searchfilepath, String sourcefilepath, String tempfilepath, String destfilepath) throws IOException {
-		// TODO Auto-generated method stub
 		FileReader sourcefr = new FileReader(sourcefilepath);
 		BufferedReader sourcebr = new BufferedReader(sourcefr);
 		
