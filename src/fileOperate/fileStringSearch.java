@@ -1,16 +1,20 @@
 package fileOperate;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.annotation.processing.Filer;
 
 public class fileStringSearch {
 
@@ -99,31 +103,47 @@ public class fileStringSearch {
 		FileReader sourcefr = new FileReader(sourcefilepath);
 		BufferedReader sourcebr = new BufferedReader(sourcefr);
 		
-		FileReader tempfr = new FileReader(tempfilepath);
-		BufferedReader tempbr = new BufferedReader(tempfr);//读取第一行文件名
 		//temp文件的输入流
 		FileWriter ftempw = new FileWriter(tempfilepath);
 		BufferedWriter btempw = new BufferedWriter(ftempw);
 		
+		FileReader destfr = new FileReader(destfilepath);
+		BufferedReader destbr = new BufferedReader(destfr);
+		
+//		FileWriter destfw = new FileWriter(destfilepath);
+//		BufferedWriter destbw = new BufferedWriter(destfw);
+		
 		String readname;
-		StringBuilder filename = new StringBuilder(((readname = tempbr.readLine())==null? sourcefilepath:readname));
-		tempbr.close();tempfr.close();
+		StringBuilder filename = new StringBuilder(((readname = destbr.readLine())==null? sourcefilepath:readname));
+		
 		filename.append("|"+searchfilepath);
 		btempw.write(filename.toString());//写入文件名
 		
 		String sources;
+		String deststr;
 		StringBuilder sb;
 		while((sources = sourcebr.readLine()) != null) {
+			deststr = destbr.readLine();
 			if(matchString(searchfilepath, sources)) {
-				sb=new StringBuilder(sources).append("|1");
+				sb=new StringBuilder(((deststr==null)||"".equals(deststr.trim())?sources:deststr)).append("|1");
 			}else {
-				sb=new StringBuilder(sources).append("|0");
+				sb=new StringBuilder(((deststr==null)||"".equals(deststr.trim())?sources:deststr)).append("|0");
 			}
 			btempw.write("\n"+sb.toString());
 		}
-		sourcebr.close();
-		sourcefr.close();
 		btempw.close();
+		sourcebr.close();
+		destbr.close();
+		System.out.println("deal over start writing to destfile");
+		
+		BufferedInputStream bufis = new BufferedInputStream(new FileInputStream(tempfilepath));
+        BufferedOutputStream bufos = new BufferedOutputStream(new FileOutputStream(destfilepath));
+        int ch = 0;
+        while ((ch = bufis.read()) != -1) {
+            bufos.write(ch);
+        }
+        bufos.close();
+        bufis.close();
 	}
 
 	/**
