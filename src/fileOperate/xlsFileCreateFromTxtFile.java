@@ -25,6 +25,15 @@ public class xlsFileCreateFromTxtFile {
 		}
 	}
 	
+	/**
+	 * 
+	 * @Description: 生成XLS/XLSX文件
+	 * @date 2018年10月30日下午2:33:27
+	 * @return void
+	 * @param txtfilename 文件中的内容以|作分割符
+	 * @param xlsname
+	 * @throws IOException
+	 */
 	public void generateXlsByTxt(String txtfilename,String xlsname) throws IOException {
 		@SuppressWarnings("unused")
 		String rootpath = txtfilename.substring(0,txtfilename.lastIndexOf("\\")+1);
@@ -42,14 +51,18 @@ public class xlsFileCreateFromTxtFile {
 			System.err.println("Excel file name error,end with xls or xlsx");
 			return;
 		}
-//		String xlsfilename = rootpath+"result.xls";
-//		String xlsxfilename = rootpath+"result.xlsx";
-//		
-//		HSSFWorkbook wb = new HSSFWorkbook();
-//		HSSFSheet xlssheet = wb.createSheet(xlsfilename);
-		
 	}
 	
+	/**
+	 * 
+	 * @Description: 生成XLS文件
+	 * @date 2018年10月30日下午2:14:17
+	 * @return boolean
+	 * @param f1 TXT文件名
+	 * @param f2 XLS文件名
+	 * @return
+	 * @throws IOException
+	 */
 	private boolean generatexlsfile(String f1,String f2) throws IOException {
 		boolean result = true;
 		HSSFWorkbook wb = new HSSFWorkbook();
@@ -80,6 +93,16 @@ public class xlsFileCreateFromTxtFile {
 		return result;
 	}
 	
+	/**
+	 * 
+	 * @Description: 生成XLSX文件
+	 * @date 2018年10月30日下午2:13:06
+	 * @return boolean
+	 * @param f1 TXT文件名
+	 * @param f2 XLSX文件名
+	 * @return
+	 * @throws IOException
+	 */
 	private boolean generatexlsxfile(String f1,String f2) throws IOException {
 		boolean result = true;
 		XSSFWorkbook xwb = new XSSFWorkbook();

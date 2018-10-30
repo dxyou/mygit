@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fileOperate.xlsFileCreateFromTxtFile;
 public class fileStringSearch {
 
 	public static void main(String[] args) throws IOException {
@@ -31,6 +32,7 @@ public class fileStringSearch {
 		String rootpath = sourcefilepath.substring(0,sourcefilepath.lastIndexOf("\\")+1);
 		String destfilepath = rootpath+"file.out"; 		//输出文件
 		String tempfilepath = rootpath+"file.temp";		//中转文件
+		String xlsfilepath = rootpath+"result.xls"; 	//输出XLS文件
 		File destfile = new File(destfilepath);
 		File tempfile = new File(tempfilepath);
 		if(!tempfile.exists()) {tempfile.createNewFile();}
@@ -55,6 +57,17 @@ public class fileStringSearch {
 			SearchWord(searchfilepath,sourcefilepath,tempfilepath,destfilepath);
 		}while(searchfilepath!=null&&searchfilepath!="");
 		
+		xlsFileCreateFromTxtFile xlsFileCreateFromTxtFile = new xlsFileCreateFromTxtFile();
+		System.out.println("result file name,must end with xls or xlsx: ");
+		String xlsname;
+		BufferedReader xlsbr = new BufferedReader(new InputStreamReader(System.in));
+		String xlsnamein = xlsbr.readLine();
+		if(searchfilepath == null || "".equals(searchfilepath)) {
+			xlsname = xlsfilepath;
+		}else {
+			xlsname = xlsnamein;
+		}
+		xlsFileCreateFromTxtFile.generateXlsByTxt(destfilepath, xlsname);
 	}
 
 	/**
@@ -69,6 +82,7 @@ public class fileStringSearch {
 	 * @throws IOException
 	 */
 	private static void SearchWord(String searchfilepath, String sourcefilepath, String tempfilepath, String destfilepath) throws IOException {
+		//先从处理后文件中读，如果有内容则在此内容后追加内容写入中间文件，如果没有内容将搜索源文件的内容写入中间文件，待中间文件操作完成后再复制写入处理后文件。
 		FileReader sourcefr = new FileReader(sourcefilepath);
 		BufferedReader sourcebr = new BufferedReader(sourcefr);
 		
@@ -78,9 +92,6 @@ public class fileStringSearch {
 		
 		FileReader destfr = new FileReader(destfilepath);
 		BufferedReader destbr = new BufferedReader(destfr);
-		
-//		FileWriter destfw = new FileWriter(destfilepath);
-//		BufferedWriter destbw = new BufferedWriter(destfw);
 		
 		String readname;
 		StringBuilder filename = new StringBuilder(((readname = destbr.readLine())==null? sourcefilepath:readname));
