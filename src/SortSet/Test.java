@@ -30,7 +30,7 @@ public class Test {
 		/*
 		 * √∞≈›≤‚ ‘
 		 */
-		System.out.println("\ndes popSort:");
+		System.out.println("\n\ndes popSort:");
 		s.PopSort(a, 0, l - 1, "des");
 		i = 0;
 		while (i < l) {
@@ -48,6 +48,26 @@ public class Test {
 		}
 		System.out.println("\n------------------------------------------------------");
 
+		/*
+		 * —°‘Ò≈≈–Ú
+		 */
+		System.out.println("\ndes selectSort:");
+		s.SelectSort(a, 0, l-1, "des");
+		i=0;
+		while(i<l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.print("\n------------------------------------------------------");
+		
+		System.out.println("\naes selectSort:");
+		s.SelectSort(a, 0, l - 1, "aes");
+		i = 0;
+		while (i < l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.println("\n------------------------------------------------------");
 	}
 
 }

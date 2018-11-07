@@ -124,7 +124,7 @@ class sortCollectionImplement {
 		 * @param c	end location
 		 * @param sortstyle "aes" or "des"
 		 */
-		private <T extends Comparable<? super T>> void SelectSort(T[] a,int b,int c,String sortstyle) {
+		public <T extends Comparable<? super T>> void SelectSort(T[] a,int b,int c,String sortstyle) {
 			if (b >= c) {
 				return;
 			}
@@ -133,18 +133,41 @@ class sortCollectionImplement {
 			if (selects==null || (!selects.equals("aes")) && (!selects.equals("des"))) {
 				return;
 			}
-			for(int i=0;i<l-1;i++) {
-				int min,max;
+			int min,max;
+			for(int i=0;i<l;i++) {
 				if(selects.equals("aes")) {
-					min = b;
-					for(int j=i+1;j<l;j++) {
-						
+					min = b+i;
+					for(int j=i+1;j<=l;j++) {
+						if(a[b+j].compareTo(a[min])<0) {
+							min = b+j;
+						}
+					}
+					if(min != b+i) {
+						Swap(a, min, b+i);
 					}
 				}
 				else if (selects.equals("des")) {
-					max = b;
+					max = b+i;
+					for(int j=i+1;j<=l;j++) {
+						if(a[b+j].compareTo(a[max])>0) {
+							max = b+j;
+						}
+					}
+					if(max != b+i) {
+						Swap(a, max, b+i);
+					}
 				}
 			}
+		}
+		
+		/**
+		 * @Description: —°‘Ò≈≈–Ú(des)
+		 * @param a ¥˝≈≈ƒ⁄»›
+		 * 
+		 */
+		public <T extends Comparable<? super T>> void SelectSort(T[] a) {
+			String tp = "des";
+			SelectSort(a, 0, a.length - 1, tp);
 		}
 		
 		<T extends Comparable<? super T>> void Swap(T[] a,int i,int j) {
