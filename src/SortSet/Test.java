@@ -68,6 +68,27 @@ public class Test {
 			i++;
 		}
 		System.out.println("\n------------------------------------------------------");
+		
+		/*
+		 * ≤Â»Î≈≈–Ú
+		 */
+		System.out.println("\ndes InsertionSort:");
+		s.InsertionSort(a, 0, l-1, "des");
+		i=0;
+		while(i<l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.print("\n------------------------------------------------------");
+		
+		System.out.println("\naes InsertionSort:");
+		s.InsertionSort(a, 0, l - 1, "aes");
+		i = 0;
+		while (i < l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.println("\n------------------------------------------------------");
 	}
 
 }

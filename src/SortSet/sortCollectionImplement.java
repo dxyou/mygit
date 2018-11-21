@@ -5,11 +5,7 @@ import interFace.sortCollection;
 class sortCollectionImplement {
 	private class sortCollectionImplementimp implements sortCollection {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see interFace.sortCollection#QuickSort(java.lang.Comparable[], int, int)
-		 */
+		
 		/**
 		 * @Description:快排
 		 * @CreateTime:20180711
@@ -170,14 +166,64 @@ class sortCollectionImplement {
 			SelectSort(a, 0, a.length - 1, tp);
 		}
 		
+		
+		/**
+		 * @Description: 插入排序
+		 * @return void
+		 * @param a 待排内容
+		 * @param b start location
+		 * @param c	end location
+		 * @param sortstyle "aes" or "des"
+		 */
+		public <T extends Comparable<? super T>> void InsertionSort(T[] a,int b,int c,String sortstyle) {
+			if (b >= c) {
+				return;
+			}
+			int l = c-b;
+			String inserts = sortstyle.toLowerCase();
+			if (inserts==null || (!inserts.equals("aes")) && (!inserts.equals("des"))) {
+				return;
+			}
+			if(inserts.equals("aes")) {
+				for(int i=1;i<=l;i++) { 
+					T get = a[b+i];//新获取的数据
+					int j = i-1;
+					while(j>=0 && (get.compareTo(a[b+j])<0)) {//与已排好序的内容作比较，如果小于将原排好序的那个数据右移一个
+						a[b+j+1] = a[b+j];
+						j--;//左移进行下个比较
+					}
+					a[b+j+1] = get;
+				}
+			}else if(inserts.equals("des")) {
+				for(int i=1;i<=l;i++) {
+					T get = a[b+i];
+					int j = i-1;
+					while(j>=0 && (get.compareTo(a[b+j])>0)) {
+						a[b+j+1] = a[b+j];
+						j--;
+					}
+					a[b+j+1]= get;
+				}
+			}
+		}
+		
+		/**
+		 * @Description: 插入排序(des)
+		 * @param a 待排内容
+		 */
+		@Override
+		public <T extends Comparable<? super T>> void InsertionSort(T[] a) {
+			String tp = "des";
+			InsertionSort(a, 0, a.length - 1, tp);
+		}
+
+		
 		<T extends Comparable<? super T>> void Swap(T[] a,int i,int j) {
 			T temp;
 			temp = a[i];
 			a[i] = a[j];
 			a[j] = temp;
 		}
-
-		
 	}
 	
 	sortCollectionImplementimp newSortCollection() {
