@@ -4,6 +4,12 @@ import interFace.sortCollection;
 
 public class Test {
 
+	/**
+	 * @Description: TODO
+	 * @date 2018年11月23日下午4:51:02
+	 * @return void
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Integer[] a = { 19, 4, 2, 56, 4, 93, 10, 3, 8, 48, 38 };
 		int l = a.length;
@@ -83,6 +89,27 @@ public class Test {
 		
 		System.out.println("\naes InsertionSort:");
 		s.InsertionSort(a, 0, l - 1, "aes");
+		i = 0;
+		while (i < l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.println("\n------------------------------------------------------");
+		
+		/*
+		 * shell排序
+		 */
+		System.out.println("\ndes ShellSort:");
+		s.ShellSort(a, 0, l - 1, "des");
+		i=0;
+		while(i<l) {
+			System.out.print(a[i] + " ");
+			i++;
+		}
+		System.out.print("\n------------------------------------------------------");
+
+		System.out.println("\naes ShellSort:");
+		s.ShellSort(a, 0, l - 1, "aes");
 		i = 0;
 		while (i < l) {
 			System.out.print(a[i] + " ");

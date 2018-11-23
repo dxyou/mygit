@@ -217,6 +217,72 @@ class sortCollectionImplement {
 			InsertionSort(a, 0, a.length - 1, tp);
 		}
 
+		/**
+		 * 
+		 * @Description: Shell排序
+		 * @date 2018年11月23日下午3:20:47
+		 * @return void
+		 * @param a []待排内容
+		 * @param b start location
+		 * @param c end location
+		 * @param shellmod "aes"or"des"
+		 */
+		public <T extends Comparable<? super T>> void ShellSort(T[] a, int b,int c,String shellmod) {
+			if (b >= c) {
+				return;
+			}
+			int l = c-b;
+			String shells = shellmod.toLowerCase();
+			if (shells==null || (!shells.equals("aes")) && (!shells.equals("des"))) {
+				return;
+			}
+			int ins = 0;
+			while(ins<=l) {
+				ins = ins*3+1;//设置步长
+			}
+			while(ins>=1) {
+//				System.out.println("\nins = "+ins+" bengin\n");
+				for(int i=b+ins;i<=b+l;i++) {//从ins+b开始进行插入排序，顺序为第一组第一个，第二组第一个，。。。
+					int j=i-ins;
+					T get = a[i];
+					if (shells.equals("aes")) {
+						while (j >= b && a[j].compareTo(get) > 0) {
+							a[j + ins] = a[j];//右移步长个单位
+							j = j - ins;
+						}
+					} else if (shells.equals("des")) {
+						while (j >= b && a[j].compareTo(get) < 0) {
+							a[j + ins] = a[j];
+							j = j - ins;
+						}
+					}
+					a[j+ins] = get;
+//					排序顺序
+//					System.out.println("\nin ins \n");
+//					for(int k = 0;k<=l;k++) {
+//						System.out.print(a[b+k]+" ");
+//					}
+//					System.out.println("\n");
+				}
+//				相应步长进行一次排序后的结果
+//				System.out.println("\nins = "+ins+" end\n");
+//				for(int k = 0;k<=l;k++) {
+//					System.out.print(a[b+k]+" ");
+//				}
+				ins=(ins-1)/3;
+			}
+		}
+		
+		/**
+		 * @Description: Shell排序(des)
+		 * @param a 待排内容
+		 */
+		@Override
+		public <T extends Comparable<? super T>> void ShellSort(T[] a) {
+			String tp = "des";
+			ShellSort(a, 0, a.length - 1, tp);
+		}
+		
 		
 		<T extends Comparable<? super T>> void Swap(T[] a,int i,int j) {
 			T temp;
